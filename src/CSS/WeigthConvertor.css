@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: auto;
+    align-content: center
+}
+
+.container:after {
+    display: block;
+    content: " placeholder ";
+    margin: 10px;
+    flex: 999 999 auto;
+  }
+
+.box {
+    flex: 0 0 auto;
+    margin: 10px;
+}
