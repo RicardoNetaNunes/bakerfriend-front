@@ -17,7 +17,7 @@ function TempConvertor() {
     return (
         <div id="container">
       <div id="box1">
-        <h1>Celsius</h1>
+        <h6>Celsius</h6>
         <input
             type = "number"
             value = {temp.c}
@@ -25,7 +25,7 @@ function TempConvertor() {
           </input>
       </div>
       <div id="box2">
-          <h1>Fahrenheit</h1>
+          <h6>Fahrenheit</h6>
           <input
             type = "number" 
             value = {temp.f} 

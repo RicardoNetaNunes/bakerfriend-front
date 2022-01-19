@@ -38,6 +38,7 @@ import '../CSS/FrontButtons.css';
     </div>
     </Link>
     </div>
+    
     </div>
    
   );
