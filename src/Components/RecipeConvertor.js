@@ -3,7 +3,7 @@ import React, { useState } from "react";
 function RecipeConvertor() {
   const [inputList, setInputList] = useState([{ ingredientName: "", weigth: 0 }]);
   const [newIngredientChange, setNewIngredientChange] = useState([]);
- 
+ const [showNew, setShowNew] = useState(false);
 
 
   // handle input change
@@ -23,13 +23,14 @@ function RecipeConvertor() {
  
   // handle click event of the Add button
   const handleAddClick = () => {
-    setInputList([...inputList, { Ingredient: "", Quantity: "" }]);
+    setInputList([...inputList, { ingredientName: "", weigth: "" }]);
   };
   
   //console.log(inputList)
 
   const btnSubmit = async (e) => {
     e.preventDefault();
+    setShowNew(true);
   let change = {
     newIngredient : e.target.newIngredient.value,
     newWeigth : e.target.newWeigth.value
@@ -39,29 +40,70 @@ function RecipeConvertor() {
    // console.log(change)
    // console.log(inputList[0].weigth)
    // console.log(change.newIngredient)
-  for (let w = 0; w < inputList.length; w++) {
-    console.log(change.newWeigth)
-    let oldWeigth = ''
-    if (inputList[w].ingredientName == change.newIngredient) {
-    oldWeigth =inputList[w].weigth
-    }
-    console.log(oldWeigth)
 
+   const oldWeigth = inputList.find(element => element = change.newIngredient)
+   console.log(oldWeigth.weigth)
+
+   const changeWeigth= inputList.map(element => {
+     console.log(element)
+     return {
+...element,
+weigth: (element.weigth * change.newWeigth / oldWeigth.weigth).toFixed(3)
+     }
+   })
+
+   setNewIngredientChange(changeWeigth)
+
+
+
+    }
+  
+   /*
+   for (let w = 0; w < inputList.length; w++) {
+    console.log(change.newWeigth)
+
+    for (let y = 0; y < inputList.length; y++) {
+      const changeWeigth= [(inputList.map.weigth(x => x * change.newWeigth / oldWeigth.weigth))]
+    
+      setNewIngredientChange(changeWeigth)
+    
+  }
+    
+ if (inputList[w].ingredientName == change.newIngredient) {
+    oldWeigth= inputList[w].weigth
+    }
+   
+console.log(inputList)
+
+
+   for (var value of inputList) {
+      //const changeWeigth= (value.weigth * change.newWeigth / oldWeigth)
+      //setNewIngredientChange(changeWeigth)
+     // setNewIngredientChange(value.weigth * change.newWeigth / oldWeigth)
+     setNewList(value.weigth)
+    } 
+    console.log(newList)
+    for (let y = 0; y < newList.length; y++) {
+      const changeWeigth= [(newList[y] * change.newWeigth / oldWeigth)]
+    
+      setNewIngredientChange(changeWeigth)
+    
+  }   
+
+  
     inputList.forEach( function (u){
         const changeWeigth= (u.weigth * change.newWeigth / oldWeigth)
         setNewIngredientChange(changeWeigth)
     })
 
-    /*
+  
     for (let y = 0; y < inputList.length; y++) {
         const changeWeigth= [(inputList[y].weigth * change.newWeigth / oldWeigth)]
       
         setNewIngredientChange(changeWeigth)
       
-    }  */ 
-    }
-  
-}
+    }  */  
+
 
 
 
@@ -93,7 +135,11 @@ console.log(newIngredientChange)
               onChange={e => handleInputChange(e, i)}
             />
            <p>Quantity: {x.weigth}</p> 
-           <p>New Quantity: {x.newIngredientChange}</p> 
+           { showNew ? (
+              
+              <p>New Quantity: {newIngredientChange[i].weigth}</p> 
+       
+             ): null}
 
 
             <div className="btn-box">
@@ -105,6 +151,8 @@ console.log(newIngredientChange)
           </div>
         );
       })}
+    
+
     <form onSubmit={btnSubmit}>
  <input name="newIngredient"
          placeholder="Enter name of ingredient to change"
@@ -126,8 +174,15 @@ console.log(newIngredientChange)
                   </button>
                 </div>
               </form> 
+            
 
-     {/*} <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div> */}
+
+
+
+
+
+
+
     </div>
   );
 }
